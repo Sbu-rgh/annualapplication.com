@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Step 2: Academic Information</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+    .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { color: #003366; }
+    .subjects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-top: 15px; }
+    label { display: block; margin-bottom: 6px; }
+    .btn { background: #003366; color: white; padding: 10px 20px; margin-top: 20px; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Step 2: Academic Information</h2>
+    <p>If you are in <strong>Grade 12</strong>, submit your <strong>Grade 11 results</strong>.<br>If you've completed Grade 12, submit your <strong>final Matric results</strong>.</p>
+
+    <label>Which results are you submitting?</label>
+    <label><input type="radio" name="resultLevel" value="Grade 11"> Grade 11 Final Results</label>
+    <label><input type="radio" name="resultLevel" value="Matric"> Matric Final Results</label>
+
+    <h3>Select at least 7 Subjects</h3>
+    <div class="subjects-grid">
+      <label><input type="checkbox" class="subject" value="English HL"> English Home Language</label>
+      <label><input type="checkbox" class="subject" value="Mathematics"> Mathematics</label>
+      <label><input type="checkbox" class="subject" value="Mathematical Literacy"> Mathematical Literacy</label>
+      <label><input type="checkbox" class="subject" value="Life Sciences"> Life Sciences</label>
+      <label><input type="checkbox" class="subject" value="Physical Sciences"> Physical Sciences</label>
+      <label><input type="checkbox" class="subject" value="Geography"> Geography</label>
+      <label><input type="checkbox" class="subject" value="History"> History</label>
+      <label><input type="checkbox" class="subject" value="Accounting"> Accounting</label>
+      <label><input type="checkbox" class="subject" value="Business Studies"> Business Studies</label>
+      <label><input type="checkbox" class="subject" value="Economics"> Economics</label>
+      <label><input type="checkbox" class="subject" value="Agricultural Sciences"> Agricultural Sciences</label>
+      <label><input type="checkbox" class="subject" value="Tourism"> Tourism</label>
+      <label><input type="checkbox" class="subject" value="CAT"> Computer Applications Technology</label>
+      <label><input type="checkbox" class="subject" value="IT"> Information Technology</label>
+      <label><input type="checkbox" class="subject" value="EGD"> Engineering Graphics & Design</label>
+      <label><input type="checkbox" class="subject" value="Visual Arts"> Visual Arts</label>
+      <label><input type="checkbox" class="subject" value="Life Orientation" checked disabled> Life Orientation (Compulsory)</label>
+    </div>
+
+    <button class="btn" onclick="saveSubjects()">Continue to Step 3</button>
+  </div>
+
+  <script>
+    function saveSubjects() {
+      const selected = Array.from(document.querySelectorAll('.subject:checked')).map(cb => cb.value);
+      const level = document.querySelector('input[name="resultLevel"]:checked');
+      if (!level) return alert("Select result level.");
+      if (selected.length < 7) return alert("Please select at least 7 subjects.");
+      const academic = { resultLevel: level.value, subjects: selected };
+      localStorage.setItem("academicInfo", JSON.stringify(academic));
+      window.location.href = "page3.html";
+    }
+  </script>
+</body>
+</html>

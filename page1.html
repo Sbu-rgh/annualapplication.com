@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Step 1: Personal Information</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { color: #003366; }
+    label { display: block; margin-top: 10px; }
+    input, select { width: 100%; padding: 10px; margin-top: 5px; }
+    .btn { background: #003366; color: white; padding: 10px 20px; margin-top: 20px; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Step 1: Personal Information</h2>
+    <label>Full Name</label>
+    <input type="text" id="name">
+
+    <label>Email</label>
+    <input type="email" id="email">
+
+    <label>Phone Number</label>
+    <input type="text" id="phone">
+
+    <label>Grade</label>
+    <select id="grade">
+      <option value="">Select</option>
+      <option value="Grade 11">Grade 11</option>
+      <option value="Grade 12">Grade 12</option>
+      <option value="Completed Matric">Completed Matric</option>
+    </select>
+
+    <label>First Career Interest</label>
+    <input type="text" id="career">
+
+    <label>Second Career Interest (Optional)</label>
+    <input type="text" id="career2">
+
+    <label>Personality Strengths (Optional)</label>
+    <input type="text" id="personality">
+
+    <button class="btn" onclick="savePersonalInfo()">Continue to Step 2</button>
+  </div>
+
+  <script>
+    function savePersonalInfo() {
+      const user = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        grade: document.getElementById('grade').value,
+        career: document.getElementById('career').value,
+        career2: document.getElementById('career2').value,
+        personality: document.getElementById('personality').value
+      };
+      if (!user.name || !user.email || !user.phone || !user.grade || !user.career) {
+        alert("Please fill all required fields.");
+        return;
+      }
+      localStorage.setItem("userData", JSON.stringify(user));
+      window.location.href = "page2.html";
+    }
+  </script>
+</body>
+</html>

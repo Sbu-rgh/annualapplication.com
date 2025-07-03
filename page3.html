@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Step 3: University & College Selection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+    .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { color: #003366; }
+    .province-block { border: 1px solid #ccc; padding: 10px; border-radius: 6px; background-color: #fff; margin-bottom: 15px; }
+    .province-title { font-weight: bold; margin-bottom: 8px; }
+    .checkbox-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
+    .btn { background: #003366; color: white; padding: 10px 20px; margin-top: 20px; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Step 3: Select Universities & Colleges</h2>
+    <p>Please select the institutions you want to apply to:</p>
+    <div class="checkbox-group">
+      <div class="province-block">
+        <div class="province-title">Gauteng</div>
+        <label><input type="checkbox" class="university" value="University of Pretoria"> University of Pretoria</label><br>
+        <label><input type="checkbox" class="university" value="University of Johannesburg"> University of Johannesburg</label><br>
+        <label><input type="checkbox" class="college" value="South West Gauteng TVET College"> South West Gauteng TVET College</label><br>
+        <label><input type="checkbox" class="college" value="Tshwane North TVET College"> Tshwane North TVET College</label>
+      </div>
+      <!-- Add more provinces and institutions similarly -->
+    </div>
+
+    <button class="btn" onclick="submitApplication()">Submit via WhatsApp</button>
+  </div>
+
+  <script>
+    function submitApplication() {
+      const user = JSON.parse(localStorage.getItem("userData"));
+      const academic = JSON.parse(localStorage.getItem("academicInfo"));
+      const institutions = [];
+      document.querySelectorAll(".university:checked, .college:checked").forEach(cb => institutions.push(cb.value));
+      if (institutions.length === 0) {
+        alert("Please select at least one institution.");
+        return;
+      }
+
+      const msg = \`Hello, I would like to apply:\n\n\${user.name} | \${user.email} | \${user.phone}\nGrade: \${user.grade}\nCareer 1: \${user.career}\nCareer 2: \${user.career2 || '-'}\nResults: \${academic.resultLevel}\nSubjects: \${academic.subjects.join(', ')}\nInstitutions: \${institutions.join(', ')}\`;
+
+      const whatsappURL = \`https://wa.me/27683683912?text=\${encodeURIComponent(msg)}\`;
+      window.open(whatsappURL, "_blank");
+    }
+  </script>
+</body>
+</html>
